@@ -1,12 +1,19 @@
 public class mydriver{
   public static void main(String[] args){
-    QueenBoard test = new QueenBoard(8);
+    QueenBoard test = new QueenBoard(4);
+    test.solve();
     System.out.println(test);
-    test.addQueen(1,3);
-    test.addQueen(4,7);
-    test.addQueen(4,3);
+
+    test = new QueenBoard(5);
+    test.solve();
     System.out.println(test);
-    test.removeQueen(1,3);
+
+    test = new QueenBoard(6);
+    test.solve();
+    System.out.println(test);
+
+    test = new QueenBoard(8);
+    test.solve();
     System.out.println(test);
   }
 }
