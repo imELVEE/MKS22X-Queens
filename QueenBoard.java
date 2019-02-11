@@ -78,22 +78,51 @@ public class QueenBoard{
   }
 
   public boolean solve(){
-    return solve(0);
-  }
-
-  private boolean solve(int c){
-    if (c >= board[0].length){
+    if(solve(0,0)){
       return true;
     }
-    for (int r = 0 ; r < board.length ; r++){
+    else{
+      for (int r = 0 ; r < board.length ; r++){
+        for (int c = 0 ; c < board[r].length ; c++){
+          board[r][c] = 0;
+        }
+      }
+      return false;
+    }
+  }
+
+  private boolean solve(int row, int c){
+    if (c >= board.length){
+      return true;
+    }
+    for (int r = row ; r < board.length ; r++){
       if (addQueen(r,c)){
-        if (solve(c+1)){
+        if (solve(0,c+1)){
           return true;
         }
       }
       removeQueen(r,c);
     }
     return false;
+  }
+
+  public int countSolutions(){
+    return countSolutions(0,0);
+  }
+
+  private int countSolutions(int c, int count){
+    if (c >= board.length){
+      return count+1;
+    }
+    for (int r = 0; r < board.length ; r++){
+      if (addQueen(r,c)){
+        if (solve(r,c+1)){
+          return countSolutions(c+1,count+1);
+        }
+      }
+      removeQueen(r,c);
+    }
+    return count;
   }
 
 }
