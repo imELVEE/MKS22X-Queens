@@ -3,10 +3,12 @@ public class QueenBoard{
   private int count;
 
   public QueenBoard(int size){
-    board = new int[size][size];
-    for (int r = 0 ; r < board.length ; r++){
-      for (int c = 0 ; c < board[r].length ; c++){
-        board[r][c] = 0;
+    if (size >= 0){
+      board = new int[size][size];
+      for (int r = 0 ; r < board.length ; r++){
+        for (int c = 0 ; c < board[r].length ; c++){
+          board[r][c] = 0;
+        }
       }
     }
   }
@@ -106,18 +108,18 @@ public class QueenBoard{
   public int countSolutions(){
     count = 0;
     solveMulti(0,0);
+    clear();
     return count;
   }
 
   private boolean solveMulti(int row, int c){
     if (c >= board.length){
+      count++;
       return true;
     }
     for (int r = row ; r < board.length ; r++){
       if (addQueen(r,c)){
-        if (solveMulti(0,c+1)){
-          count++;
-        }
+        solveMulti(0,c+1);
       }
       removeQueen(r,c);
     }
