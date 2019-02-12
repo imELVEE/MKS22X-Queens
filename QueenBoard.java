@@ -3,12 +3,10 @@ public class QueenBoard{
   private int count;
 
   public QueenBoard(int size){
-    if (size >= 0){
-      board = new int[size][size];
-      for (int r = 0 ; r < board.length ; r++){
-        for (int c = 0 ; c < board[r].length ; c++){
-          board[r][c] = 0;
-        }
+    board = new int[size][size];
+    for (int r = 0 ; r < board.length ; r++){
+      for (int c = 0 ; c < board[r].length ; c++){
+        board[r][c] = 0;
       }
     }
   }
@@ -81,13 +79,14 @@ public class QueenBoard{
   }
 
   public boolean solve(){
-    if(solve(0,0)){
-      return true;
-    }
-    else{
-      clear();
-      return false;
-    }
+      check();
+      if(solve(0,0)){
+        return true;
+      }
+      else{
+        clear();
+        return false;
+      }
   }
 
   private boolean solve(int row, int c){
@@ -106,10 +105,11 @@ public class QueenBoard{
   }
 
   public int countSolutions(){
-    count = 0;
-    solveMulti(0,0);
-    clear();
-    return count;
+      check();
+      count = 0;
+      solveMulti(0,0);
+      clear();
+      return count;
   }
 
   private boolean solveMulti(int row, int c){
@@ -130,6 +130,16 @@ public class QueenBoard{
     for (int r = 0 ; r < board.length ; r++){
       for (int c = 0 ; c < board[r].length ; c++){
         board[r][c] = 0;
+      }
+    }
+  }
+
+  private void check() throws IllegalStateException{
+    for (int r = 0 ; r < board.length ; r++){
+      for (int c = 0 ; c < board[r].length ; c++){
+        if (board[r][c] != 0){
+          throw new IllegalStateException("BOARD IS NOT EMPTY");
+        }
       }
     }
   }

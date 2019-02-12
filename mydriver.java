@@ -2,19 +2,15 @@ public class mydriver{
   public static void main(String[] args){
     QueenBoard test = new QueenBoard(4);
     System.out.println(test + "\n" + test.solve());
-    System.out.println(test.countSolutions() + "\n");
 
     test = new QueenBoard(5);
     System.out.println(test + "\n" + test.solve());
-    System.out.println(test.countSolutions() + "\n");
 
     test = new QueenBoard(6);
     System.out.println(test + "\n" + test.solve());
-    System.out.println(test.countSolutions() + "\n");
 
     test = new QueenBoard(8);
     System.out.println(test + "\n" + test.solve());
-    System.out.println(test.countSolutions() + "\n");
 
     System.out.println();
     test = new QueenBoard(0);
@@ -40,11 +36,21 @@ public class mydriver{
     test = new QueenBoard(10);
     System.out.println("Board of 10 = " + test.countSolutions() + "\n");
 
-    System.out.println();
-    test = new QueenBoard(-1);
-    System.out.println(test.countSolutions());
-    System.out.println(test.solve());
+    test = new QueenBoard(5);
+    test.solve();
     System.out.println(test);
-
+    try{
+    test.solve();
+    System.out.println(test);
+    }
+    catch(IllegalStateException e){
+      System.out.println("It threw it!");
+    }
+    try{
+    test.countSolutions();
+    }
+    catch(IllegalStateException e){
+      System.out.println("It threw it! Again!");
+    }
   }
 }
