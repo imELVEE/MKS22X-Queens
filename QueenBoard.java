@@ -1,5 +1,6 @@
 public class QueenBoard{
   private int[][] board;
+  private int count;
 
   public QueenBoard(int size){
     board = new int[size][size];
@@ -82,11 +83,7 @@ public class QueenBoard{
       return true;
     }
     else{
-      for (int r = 0 ; r < board.length ; r++){
-        for (int c = 0 ; c < board[r].length ; c++){
-          board[r][c] = 0;
-        }
-      }
+      clear();
       return false;
     }
   }
@@ -107,22 +104,32 @@ public class QueenBoard{
   }
 
   public int countSolutions(){
-    return countSolutions(0,0);
+    count = 0;
+    solveMulti(0,0);
+    return count;
   }
 
-  private int countSolutions(int c, int count){
+  private boolean solveMulti(int row, int c){
     if (c >= board.length){
-      return count+1;
+      return true;
     }
-    for (int r = 0; r < board.length ; r++){
+    for (int r = row ; r < board.length ; r++){
       if (addQueen(r,c)){
-        if (solve(r,c+1)){
-          return countSolutions(c+1,count+1);
+        if (solveMulti(0,c+1)){
+          count++;
         }
       }
       removeQueen(r,c);
     }
-    return count;
+    return false;
+  }
+
+  private void clear(){
+    for (int r = 0 ; r < board.length ; r++){
+      for (int c = 0 ; c < board[r].length ; c++){
+        board[r][c] = 0;
+      }
+    }
   }
 
 }
